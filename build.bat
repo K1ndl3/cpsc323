@@ -1,1 +1,1 @@
-g++ main.cpp -o lexer
+g++ -std=c++17 main.cpp Lexer.cpp -o cpsc323.exe
