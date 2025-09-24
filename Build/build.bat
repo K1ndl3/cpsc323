@@ -1,1 +1,1 @@
-g++ -std=c++17 main.cpp Lexer.cpp -o cpsc323.exe
+g++ -ILexer-folder main.cpp Lexer-folder/Lexer.cpp -o exec/lexer
