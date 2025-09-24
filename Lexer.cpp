@@ -1,3 +1,3 @@
 #include "Lexer.hpp"
 
-// implementation for the lexer class
+// implementation for the lexer function
