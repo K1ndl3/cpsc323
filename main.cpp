@@ -45,6 +45,7 @@ int main() {
         // skips white spaces
         if (std::isspace(ch)) continue;
 
+        // 
         std::string lexeme(1, ch);
 
 
@@ -69,6 +70,14 @@ int main() {
 
         std::cout << "[LEXICAL ERROR: UNKNOWN SYMBOL] -> " << lexeme << '\n';
     }
+
+
+    // TODO: Implement the hash table of the states (unordered map)
+    // With key = int, with value = std::vector<int>
+
+    // TODO: Create hash table that converts state to state meaning (e.g. 1 = initial, 2 = identifier, etc.)
+
+
 
     return 0;
 }
