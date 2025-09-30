@@ -7,4 +7,7 @@
 ## How to compile
     - open command prompt
     - cd to your folder
-    - run: build.bat
+    - run: ./Build/build.bat
+## How to run the program
+    - be the source folder
+    - ./exec/lexer.exe
