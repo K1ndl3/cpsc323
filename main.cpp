@@ -13,11 +13,11 @@ const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", ">=
 const std::unordered_set<std::string> separatorSet =  {"(", ")","{","}",";",","};
 
 /////////////////////////////////////////// custom checker functions ///////////////////////////////////////
-int isOperator(std::string str) {
+int isOperator(const std::string& str) {
     return operatorSet.count(str);
 }
 
-int isSeparator(std::string str) {
+int isSeparator(const std::string& str) {
     return separatorSet.count(str);
 }
 
