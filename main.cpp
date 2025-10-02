@@ -1,5 +1,7 @@
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
+#include <vector>
 #include <string>
 #include <fstream>
 // for checker function isdigit() - returns 1 if true, 0 if false
@@ -19,6 +21,75 @@ int isOperator(const std::string& str) {
 
 int isSeparator(const std::string& str) {
     return separatorSet.count(str);
+}
+
+// TODO: Implement the hash table of the states (unordered map)
+// With key = int, with value = std::vector<int>
+std::unordered_map<int, std::vector<int>> FSMtable = {
+    {1, {2, 3, 4}},
+    {2, {5, 6, 4}},
+    {3, {4, 3, 7}},
+    {4, {4, 4, 4}},
+    {5, {5, 6, 4}},
+    {6, {5, 6, 4}},
+    {7, {4, 8, 4}},
+    {8, {4, 8, 4}}
+};
+
+// Structure for holding token information to pass between lexer and main
+struct Token {
+    std::string type;
+    std::string lexeme;
+};
+
+// Lexer function process by starting with firstChar, uses FSM to consume token,
+// prints token info, and returns the token
+Token lexer(std::ifstream& inputFile, char firstChar) {
+    std::string lexeme(1, firstChar);
+    int state = 1;
+
+    // Categorizes into FSM input classes where 0 is letter, 1 is digit, 2 is dot, -1 is invalid
+    auto categorize = [](char c) {
+        if (std::isalpha(c)) return 0;
+        else if (std::isdigit(c)) return 1;
+        else if (c == '.') return 2;
+        else return -1;
+    };
+
+    int charType = categorize(firstChar);
+
+    // Prints error if first character is invalid
+    if (charType == -1) return {"LEXICAL ERROR", lexeme};
+
+    char ch;
+    while(true) {
+        char peek = inputFile.peek();
+        int nextCharType = categorize(peek);
+
+        // Check if FSM transition exists for current state and next char type
+        if (nextCharType != -1 && FSMtable.count(state)) {
+            int nextState = FSMtable[state][nextCharType];
+
+            // If next state is invalid, stop consuming characters
+            if (nextState == 4) break;
+
+            state = nextState;
+            inputFile.get(ch);
+            lexeme += ch;
+
+        } else break; // No valid transition for next char, end token
+    }
+
+    // Classify and print token based on final FSM state
+    if (state == 2 || state == 5 || state == 6) {
+        if (keywordSet.count(lexeme)) return {"KEYWORD", lexeme};
+        return {"IDENTIFIER", lexeme};
+    }
+    if (state == 3) return {"INTEGER", lexeme};
+    if (state == 8) return {"REAL", lexeme};
+
+    // Default case: invalid token
+    return {"LEXICAL ERROR", lexeme};
 }
 
 int main() {
@@ -68,15 +139,9 @@ int main() {
             continue;
         }
 
-        std::cout << "[LEXICAL ERROR: UNKNOWN SYMBOL] -> " << lexeme << '\n';
+        Token token = lexer(inputFile, ch);
+        std::cout << "[" << token.type << "] -> " << token.lexeme << '\n';
     }
-
-
-    // TODO: Implement the hash table of the states (unordered map)
-    // With key = int, with value = std::vector<int>
-
-    // TODO: Create hash table that converts state to state meaning (e.g. 1 = initial, 2 = identifier, etc.)
-
 
 
     return 0;
