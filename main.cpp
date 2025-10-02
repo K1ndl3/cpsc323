@@ -63,16 +63,18 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
 
     char ch;
     while(true) {
+        // TODO: the lexer is not reading the current char but is instead entering the next state thru char's next by peek()
+        
         char peek = inputFile.peek();
+        if (peek == EOF) break;
         int nextCharType = categorize(peek);
-
         // Check if FSM transition exists for current state and next char type
         if (nextCharType != -1 && FSMtable.count(state)) {
             int nextState = FSMtable[state][nextCharType];
-
+            
             // If next state is invalid, stop consuming characters
             if (nextState == 4) break;
-
+            std::cout << "TEST STATE " << state << '\n'; 
             state = nextState;
             inputFile.get(ch);
             lexeme += ch;
