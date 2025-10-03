@@ -1,4 +1,6 @@
 function convert (fahr integer)
 {
+ int a = b;
+ int b = ab;
 return 5 * (fahr -32) / 9;
 }

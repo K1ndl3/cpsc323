@@ -8,6 +8,7 @@
 // for checker function isalpha() - returns 1 if true, 0 if false
 #include <cctype>
 #include "./Lexer-folder/Lexer.hpp"
+#include <iomanip> // for std::setw
 
 //////////////////////////////////////////// Look Up Tables ////////////////////////////////////////////////
 const std::unordered_set<std::string> keywordSet   =  {"true", "false", "integer", "if", "else", "fi", "while", "return", "get", "put"};
@@ -23,7 +24,6 @@ int isSeparator(const std::string& str) {
     return separatorSet.count(str);
 }
 
-// TODO: Implement the hash table of the states (unordered map)
 // With key = int, with value = std::vector<int>
 std::unordered_map<int, std::vector<int>> FSMtable = {
     {1, {2, 3, 4}},
@@ -64,8 +64,7 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
 
     char ch;
     while(true) {
-        // TODO: the lexer is not reading the current char but is instead entering the next state thru char's next by peek()
-        
+                
         char peek = inputFile.peek();
         int nextCharType = categorize(peek);
         // Check if FSM transition exists for current state and next char type
@@ -98,57 +97,65 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
     return {"LEXICAL ERROR", lexeme};
 }
 
+// Function to print tokens in a formatted table
+void printToken(const Token& token) {
+    std::cout << std::left << std::setw(15) << token.type
+              << std::setw(15) << token.lexeme << '\n';
+}
+
 int main() {
     std::cout << "Lexer for rat24F starting\n";
-    
+
     // Taking input from input.txt and storing into inputFile
     std::ifstream inputFile("input.txt");
     if (!inputFile) {
         std::cout << "[ERROR] -> cannot open file " << "'input.txt'\n";
         return 1;
     }
-    
-    // Input file sucessfully loaded
+
+    // Input file successfully loaded
     std::cout << "[SUCCESS] -> file opened\n";
     std::cout << "Running lexer...\n\n\n\n\n";
     std::cout << "============================\n";
-    
 
-    // iterate through the inputFile using .get() and run lexer()
-    // this technically will be the lexer function but we can always wrap it in
-    // a function after we finish
+    // Print table header
+    std::cout << std::left << std::setw(15) << "TOKEN TYPE"
+              << std::setw(15) << "LEXEME" << '\n';
+    std::cout << "============================\n";
+
+    // Iterate through the inputFile using .get() and run lexer()
     char ch;
     while (inputFile.get(ch)) {
-        // skips white spaces
+        // Skip white spaces
         if (std::isspace(ch)) continue;
 
-        // 
         std::string lexeme(1, ch);
 
-
-        // checks for operators with multi-characters
+        // Check for operators with multi-characters
         if (ch == '=' || ch == '!' || ch == '<' || ch == '>') {
-            char next = inputFile.peek();
-            if (next == '=') {
+            int np = inputFile.peek();
+            if (np != EOF && static_cast<char>(np) == '=') {
+                char next;
                 inputFile.get(next);
                 lexeme.push_back(next);
-            } 
+            }
         }
 
-        if(isOperator(lexeme)) {
-            std::cout << "[OPERATOR] -> " << lexeme << '\n';
+        if (isOperator(lexeme)) {
+            std::cout << std::left << std::setw(15) << "OPERATOR"
+                      << std::setw(15) << lexeme << '\n';
             continue;
         }
 
         if (isSeparator(lexeme)) {
-            std::cout << "[SEPARATOR] -> " << lexeme << '\n';
+            std::cout << std::left << std::setw(15) << "SEPARATOR"
+                      << std::setw(15) << lexeme << '\n';
             continue;
         }
 
         Token token = lexer(inputFile, ch);
-        std::cout << "[" << token.type << "] -> " << token.lexeme << '\n';
+        printToken(token);
     }
-
 
     return 0;
 }
