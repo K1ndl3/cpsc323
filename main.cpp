@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////// Look Up Tables ////////////////////////////////////////////////
 const std::unordered_set<std::string> keywordSet   =  {"true", "false", "integer", "if", "else", "fi", "while", "return", "get", "put"};
-const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", ">=", "<=", "+", "-", "*", "/"};
+const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", ">=", "<=", "+", "-", "*", "/", "="};
 const std::unordered_set<std::string> separatorSet =  {"(", ")","{","}",";",","};
 
 /////////////////////////////////////////// custom checker functions ///////////////////////////////////////
@@ -48,6 +48,7 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
     std::string lexeme(1, firstChar);
     int state = 1;
 
+    // anon
     // Categorizes into FSM input classes where 0 is letter, 1 is digit, 2 is dot, -1 is invalid
     auto categorize = [](char c) {
         if (std::isalpha(c)) return 0;
@@ -66,7 +67,6 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
         // TODO: the lexer is not reading the current char but is instead entering the next state thru char's next by peek()
         
         char peek = inputFile.peek();
-        if (peek == EOF) break;
         int nextCharType = categorize(peek);
         // Check if FSM transition exists for current state and next char type
         if (nextCharType != -1 && FSMtable.count(state)) {
@@ -74,7 +74,6 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
             
             // If next state is invalid, stop consuming characters
             if (nextState == 4) break;
-            std::cout << "TEST STATE " << state << '\n'; 
             state = nextState;
             inputFile.get(ch);
             lexeme += ch;
@@ -82,6 +81,11 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
         } else break; // No valid transition for next char, end token
     }
 
+    // if lexeme is of size 1 that means we only have 1 character
+    if (lexeme.size() == 1) {
+        int arrIndex = categorize(lexeme[0]);
+        state = FSMtable[state][arrIndex];
+    }
     // Classify and print token based on final FSM state
     if (state == 2 || state == 5 || state == 6) {
         if (keywordSet.count(lexeme)) return {"KEYWORD", lexeme};
