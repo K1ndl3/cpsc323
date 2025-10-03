@@ -14,18 +14,7 @@
 const std::unordered_set<std::string> keywordSet   =  {"true", "false", "integer", "if", "else", "fi", "while", "return", "get", "put"};
 const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", ">=", "<=", "+", "-", "*", "/", "="};
 const std::unordered_set<std::string> separatorSet =  {"(", ")","{","}",";",","};
-
-/////////////////////////////////////////// custom checker functions ///////////////////////////////////////
-int isOperator(const std::string& str) {
-    return operatorSet.count(str);
-}
-
-int isSeparator(const std::string& str) {
-    return separatorSet.count(str);
-}
-
-// With key = int, with value = std::vector<int>
-std::unordered_map<int, std::vector<int>> FSMtable = {
+std::unordered_map<int, std::vector<int>> FSMtable = { // With key = int, with value = std::vector<int>
     {1, {2, 3, 4}},
     {2, {5, 6, 4}},
     {3, {4, 3, 7}},
@@ -35,8 +24,17 @@ std::unordered_map<int, std::vector<int>> FSMtable = {
     {7, {4, 8, 4}},
     {8, {4, 8, 4}}
 };
+/////////////////////////////////////////// custom checker functions ///////////////////////////////////////
+int isOperator(const std::string& str) {
+    return operatorSet.count(str);
+}
 
-// Structure for holding token information to pass between lexer and main
+int isSeparator(const std::string& str) {
+    return separatorSet.count(str);
+}
+
+
+///////////////////////////////////////// struct for token ////////////////////////////////////////////////
 struct Token {
     std::string type;
     std::string lexeme;
@@ -48,7 +46,6 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
     std::string lexeme(1, firstChar);
     int state = 1;
 
-    // anon
     // Categorizes into FSM input classes where 0 is letter, 1 is digit, 2 is dot, -1 is invalid
     auto categorize = [](char c) {
         if (std::isalpha(c)) return 0;
