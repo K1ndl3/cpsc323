@@ -101,7 +101,7 @@ void printToken(const Token& token) {
 }
 
 int main() {
-    std::cout << "Lexer for rat24F starting\n";
+    std::cout << "Lexer for rat25F starting\n";
 
     // Taking input from input.txt and storing into inputFile
     std::ifstream inputFile("input.txt");
