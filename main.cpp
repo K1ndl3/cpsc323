@@ -46,10 +46,38 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
     std::string lexeme(1, firstChar);
     int state = 1;
 
+    // Skip white spaces: if the firstChar we were given is whitespace, consume until a non-space
+    if (std::isspace(static_cast<unsigned char>(firstChar))) {
+        char c;
+        bool found = false;
+        while (inputFile.get(c)) {
+            if (!std::isspace(static_cast<unsigned char>(c))) {
+                firstChar = c;
+                lexeme = std::string(1, firstChar);
+                found = true;
+                break;
+            }
+        }
+        if (!found) return {"", ""};
+    }
+
+    // Check for operators with multi-characters (e.g. ==, !=, <=, >=)
+    if (firstChar == '=' || firstChar == '!' || firstChar == '<' || firstChar == '>') {
+        int np = inputFile.peek();
+        if (np == '=') {
+            char next;
+            inputFile.get(next);
+            lexeme.push_back(next);
+        }
+    }
+
+    if (isOperator(lexeme)) return {"OPERATOR", lexeme};
+    if (isSeparator(lexeme)) return {"SEPARATOR", lexeme};
+
     // Categorizes into FSM input classes where 0 is letter, 1 is digit, 2 is dot, -1 is invalid
     auto categorize = [](char c) {
-        if (std::isalpha(c)) return 0;
-        else if (std::isdigit(c)) return 1;
+        if (std::isalpha(static_cast<unsigned char>(c))) return 0;
+        else if (std::isdigit(static_cast<unsigned char>(c))) return 1;
         else if (c == '.') return 2;
         else return -1;
     };
@@ -61,13 +89,13 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
 
     char ch;
     while(true) {
-                
-        char peek = inputFile.peek();
-        int nextCharType = categorize(peek);
+        int p = inputFile.peek();
+        if (p == EOF) break;
+        int nextCharType = categorize(static_cast<char>(p));
         // Check if FSM transition exists for current state and next char type
         if (nextCharType != -1 && FSMtable.count(state)) {
             int nextState = FSMtable[state][nextCharType];
-            
+
             // If next state is invalid, stop consuming characters
             if (nextState == 4) break;
             state = nextState;
@@ -123,34 +151,9 @@ int main() {
     // Iterate through the inputFile using .get() and run lexer()
     char ch;
     while (inputFile.get(ch)) {
-        // Skip white spaces
-        if (std::isspace(ch)) continue;
-
-        std::string lexeme(1, ch);
-
-        // Check for operators with multi-characters
-        if (ch == '=' || ch == '!' || ch == '<' || ch == '>') {
-            int np = inputFile.peek();
-            if (np != EOF && static_cast<char>(np) == '=') {
-                char next;
-                inputFile.get(next);
-                lexeme.push_back(next);
-            }
-        }
-
-        if (isOperator(lexeme)) {
-            std::cout << std::left << std::setw(15) << "OPERATOR"
-                      << std::setw(15) << lexeme << '\n';
-            continue;
-        }
-
-        if (isSeparator(lexeme)) {
-            std::cout << std::left << std::setw(15) << "SEPARATOR"
-                      << std::setw(15) << lexeme << '\n';
-            continue;
-        }
-
         Token token = lexer(inputFile, ch);
+        // lexer may return an empty token when it consumed only whitespace/EOF
+        if (token.type.empty() && token.lexeme.empty()) continue;
         printToken(token);
     }
 
