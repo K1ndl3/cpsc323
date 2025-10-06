@@ -1,0 +1,12 @@
+integer x = 10;
+integer y = 20;
+real z = 3.14;
+if (x < y) {
+    z = x + y * 2.5;
+    while (z >= 10.0) {
+        z = z - 1.0;
+    }
+} else {
+    print("x is not less than y");
+}
+return z;

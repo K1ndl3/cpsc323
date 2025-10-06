@@ -32,8 +32,6 @@ int isOperator(const std::string& str) {
 int isSeparator(const std::string& str) {
     return separatorSet.count(str);
 }
-
-
 ///////////////////////////////////////// struct for token ////////////////////////////////////////////////
 struct Token {
     std::string type;
@@ -41,7 +39,7 @@ struct Token {
 };
 
 // Lexer function process by starting with firstChar, uses FSM to consume token,
-// prints token info, and returns the token
+// Prints token info, and returns the token
 Token lexer(std::ifstream& inputFile, char firstChar) {
     std::string lexeme(1, firstChar);
     int state = 1;
@@ -63,8 +61,8 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
 
     // Check for operators with multi-characters (e.g. ==, !=, <=, >=)
     if (firstChar == '=' || firstChar == '!' || firstChar == '<' || firstChar == '>') {
-        int np = inputFile.peek();
-        if (np == '=') {
+        int nextPart = inputFile.peek();
+        if (nextPart == '=') {
             char next;
             inputFile.get(next);
             lexeme.push_back(next);
@@ -105,7 +103,7 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
         } else break; // No valid transition for next char, end token
     }
 
-    // if lexeme is of size 1 that means we only have 1 character
+    // If lexeme is of size 1 that means we only have 1 character
     if (lexeme.size() == 1) {
         int arrIndex = categorize(lexeme[0]);
         state = FSMtable[state][arrIndex];
@@ -123,38 +121,55 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
 }
 
 // Function to print tokens in a formatted table
-void printToken(const Token& token) {
-    std::cout << std::left << std::setw(15) << token.type
+void printToken(const Token& token, std::ofstream& out) {
+    out << std::left << std::setw(15) << token.type
               << std::setw(15) << token.lexeme << '\n';
 }
 
 int main() {
+    std::ofstream out1("./output/output1.txt");
+    std::ofstream out2("./output/output2.txt");
+    std::ofstream out3("./output/output3.txt");
     std::cout << "Lexer for rat25F starting\n";
 
     // Taking input from input.txt and storing into inputFile
-    std::ifstream inputFile("input.txt");
-    if (!inputFile) {
+    std::ifstream inputFile1("./input/input1.txt");
+    std::ifstream inputFile2("./input/input2.txt");
+    std::ifstream inputFile3("./input/input3.txt");
+    if (!inputFile1) {
+        std::cout << "[ERROR] -> cannot open file " << "'input.txt'\n";
+        return 1;
+    }
+
+    if (!inputFile2) {
+        std::cout << "[ERROR] -> cannot open file " << "'input.txt'\n";
+        return 1;
+    }
+
+    if (!inputFile3) {
         std::cout << "[ERROR] -> cannot open file " << "'input.txt'\n";
         return 1;
     }
 
     // Input file successfully loaded
-    std::cout << "[SUCCESS] -> file opened\n";
-    std::cout << "Running lexer...\n\n\n\n\n";
-    std::cout << "============================\n";
-
-    // Print table header
-    std::cout << std::left << std::setw(15) << "TOKEN TYPE"
-              << std::setw(15) << "LEXEME" << '\n';
-    std::cout << "============================\n";
+    std::cout << "[SUCCESS] -> fileA opened\n";
+    std::cout << "Running lexer...\n";
 
     // Iterate through the inputFile using .get() and run lexer()
     char ch;
-    while (inputFile.get(ch)) {
-        Token token = lexer(inputFile, ch);
-        // lexer may return an empty token when it consumed only whitespace/EOF
-        if (token.type.empty() && token.lexeme.empty()) continue;
-        printToken(token);
+    while (inputFile1.get(ch)) {     
+        Token token = lexer(inputFile1, ch);
+        printToken(token, out1);
+    }
+
+    while (inputFile2.get(ch)) {
+        Token token = lexer(inputFile2, ch);
+        printToken(token, out2);
+    }
+
+    while (inputFile3.get(ch)) {
+        Token token = lexer(inputFile3, ch);
+        printToken(token, out3);
     }
 
     return 0;

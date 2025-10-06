@@ -1,1 +1,1 @@
-g++ -ILexer-folder main.cpp Lexer-folder/Lexer.cpp -o exec/lexer
+g++ -std=c++17 -ILexer-folder main.cpp Lexer-folder/Lexer.cpp -o exec/lexer

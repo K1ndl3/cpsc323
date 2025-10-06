@@ -1,0 +1,88 @@
+IDENTIFIER     for            
+SEPARATOR      (              
+KEYWORD        integer        
+IDENTIFIER     a              
+OPERATOR       =              
+INTEGER        1              
+SEPARATOR      ;              
+IDENTIFIER     i              
+OPERATOR       <              
+INTEGER        3              
+SEPARATOR      ;              
+IDENTIFIER     i              
+OPERATOR       +              
+OPERATOR       +              
+SEPARATOR      )              
+SEPARATOR      {              
+IDENTIFIER     print          
+SEPARATOR      (              
+LEXICAL ERROR  "              
+IDENTIFIER     How            
+IDENTIFIER     are            
+IDENTIFIER     you            
+LEXICAL ERROR  "              
+SEPARATOR      )              
+SEPARATOR      ;              
+KEYWORD        if             
+SEPARATOR      (              
+IDENTIFIER     a              
+OPERATOR       ==             
+INTEGER        2              
+SEPARATOR      )              
+SEPARATOR      {              
+IDENTIFIER     print          
+SEPARATOR      (              
+LEXICAL ERROR  "              
+IDENTIFIER     i              
+IDENTIFIER     am             
+IDENTIFIER     fine           
+LEXICAL ERROR  "              
+SEPARATOR      )              
+SEPARATOR      ;              
+SEPARATOR      }              
+KEYWORD        fi             
+SEPARATOR      {              
+IDENTIFIER     print          
+SEPARATOR      (              
+LEXICAL ERROR  "              
+IDENTIFIER     thank          
+IDENTIFIER     you            
+LEXICAL ERROR  "              
+SEPARATOR      )              
+SEPARATOR      ;              
+SEPARATOR      }              
+SEPARATOR      }              
+IDENTIFIER     for            
+SEPARATOR      (              
+IDENTIFIER     int            
+IDENTIFIER     i              
+OPERATOR       =              
+INTEGER        0              
+SEPARATOR      ;              
+IDENTIFIER     i              
+OPERATOR       <              
+INTEGER        10             
+SEPARATOR      ;              
+IDENTIFIER     i              
+OPERATOR       +              
+OPERATOR       +              
+SEPARATOR      )              
+SEPARATOR      {              
+IDENTIFIER     print          
+SEPARATOR      (              
+LEXICAL ERROR  "              
+IDENTIFIER     Iteration      
+LEXICAL ERROR  "              
+SEPARATOR      )              
+SEPARATOR      ;              
+KEYWORD        if             
+SEPARATOR      (              
+IDENTIFIER     i              
+OPERATOR       ==             
+INTEGER        5              
+SEPARATOR      )              
+SEPARATOR      {              
+IDENTIFIER     break          
+SEPARATOR      ;              
+SEPARATOR      }              
+SEPARATOR      }              
