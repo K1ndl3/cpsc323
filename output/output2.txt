@@ -1,88 +1,91 @@
-IDENTIFIER     for            
+LEXICAL ERROR  "              
+IDENTIFIER     operator       
+IDENTIFIER     test           
+LEXICAL ERROR  "              
+OPERATOR       =              
+OPERATOR       !=             
+OPERATOR       >              
+OPERATOR       <              
+OPERATOR       <=             
+OPERATOR       =>             
+OPERATOR       +              
+OPERATOR       -              
+OPERATOR       *              
+OPERATOR       /              
+OPERATOR       ==             
+OPERATOR       +              
+OPERATOR       -              
+OPERATOR       *              
+OPERATOR       /              
+LEXICAL ERROR  "              
+IDENTIFIER     separator      
+IDENTIFIER     test           
+LEXICAL ERROR  "              
+SEPARATOR      {              
+SEPARATOR      }              
+SEPARATOR      ;              
+SEPARATOR      ;              
+SEPARATOR      ,              
 SEPARATOR      (              
+SEPARATOR      )              
+OPERATOR       =              
+SEPARATOR      #              
+SEPARATOR      )              
+SEPARATOR      (              
+LEXICAL ERROR  "              
+IDENTIFIER     keyword        
+IDENTIFIER     test           
+LEXICAL ERROR  "              
 KEYWORD        integer        
-IDENTIFIER     a              
-OPERATOR       =              
-INTEGER        1              
-SEPARATOR      ;              
-IDENTIFIER     i              
-OPERATOR       <              
-INTEGER        3              
-SEPARATOR      ;              
-IDENTIFIER     i              
-OPERATOR       +              
-OPERATOR       +              
-SEPARATOR      )              
-SEPARATOR      {              
-IDENTIFIER     print          
-SEPARATOR      (              
-LEXICAL ERROR  "              
-IDENTIFIER     How            
-IDENTIFIER     are            
-IDENTIFIER     you            
-LEXICAL ERROR  "              
-SEPARATOR      )              
-SEPARATOR      ;              
+IDENTIFIER     boolean        
+IDENTIFIER     function       
+IDENTIFIER     real           
 KEYWORD        if             
-SEPARATOR      (              
-IDENTIFIER     a              
-OPERATOR       ==             
-INTEGER        2              
-SEPARATOR      )              
-SEPARATOR      {              
-IDENTIFIER     print          
-SEPARATOR      (              
-LEXICAL ERROR  "              
-IDENTIFIER     i              
-IDENTIFIER     am             
-IDENTIFIER     fine           
-LEXICAL ERROR  "              
-SEPARATOR      )              
-SEPARATOR      ;              
-SEPARATOR      }              
+KEYWORD        else           
 KEYWORD        fi             
-SEPARATOR      {              
-IDENTIFIER     print          
-SEPARATOR      (              
+KEYWORD        return         
+KEYWORD        put            
+KEYWORD        get            
+KEYWORD        while          
+KEYWORD        true           
+KEYWORD        false          
 LEXICAL ERROR  "              
-IDENTIFIER     thank          
-IDENTIFIER     you            
+KEYWORD        integer        
 LEXICAL ERROR  "              
-SEPARATOR      )              
-SEPARATOR      ;              
-SEPARATOR      }              
-SEPARATOR      }              
-IDENTIFIER     for            
-SEPARATOR      (              
-IDENTIFIER     int            
-IDENTIFIER     i              
-OPERATOR       =              
-INTEGER        0              
-SEPARATOR      ;              
-IDENTIFIER     i              
-OPERATOR       <              
-INTEGER        10             
-SEPARATOR      ;              
-IDENTIFIER     i              
-OPERATOR       +              
-OPERATOR       +              
-SEPARATOR      )              
-SEPARATOR      {              
-IDENTIFIER     print          
-SEPARATOR      (              
+INTEGER        1              
+INTEGER        1000           
+INTEGER        99             
+INTEGER        00000000000000 
 LEXICAL ERROR  "              
-IDENTIFIER     Iteration      
+IDENTIFIER     real           
 LEXICAL ERROR  "              
-SEPARATOR      )              
-SEPARATOR      ;              
-KEYWORD        if             
-SEPARATOR      (              
-IDENTIFIER     i              
-OPERATOR       ==             
-INTEGER        5              
-SEPARATOR      )              
-SEPARATOR      {              
-IDENTIFIER     break          
-SEPARATOR      ;              
-SEPARATOR      }              
-SEPARATOR      }              
+REAL           234.567        
+INTEGER        9              
+INTEGER        .000001        
+REAL           000.00         
+INTEGER        .1234          
+LEXICAL ERROR  "              
+IDENTIFIER     identifier     
+LEXICAL ERROR  "              
+INTEGER        z12            
+LEXICAL ERROR  $              
+IDENTIFIER     d              
+LEXICAL ERROR  $              
+IDENTIFIER     Zzzz           
+INTEGER        a1             
+INTEGER        z4             
+IDENTIFIER     r              
+IDENTIFIER     zbc12          
+LEXICAL ERROR  $              
+IDENTIFIER     x              
+IDENTIFIER     x              
+LEXICAL ERROR  "              
+IDENTIFIER     wrong          
+IDENTIFIER     Tokens         
+LEXICAL ERROR  "              
+LEXICAL ERROR  $              
+LEXICAL ERROR  _              
+INTEGER        23             
+IDENTIFIER     rty            
+LEXICAL ERROR  000.           
+                              

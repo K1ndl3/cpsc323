@@ -12,8 +12,8 @@
 
 //////////////////////////////////////////// Look Up Tables ////////////////////////////////////////////////
 const std::unordered_set<std::string> keywordSet   =  {"true", "false", "integer", "if", "else", "fi", "while", "return", "get", "put"};
-const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", ">=", "<=", "+", "-", "*", "/", "="};
-const std::unordered_set<std::string> separatorSet =  {"(", ")","{","}",";",","};
+const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", "<=", "+", "-", "*", "/", "=", "=>"};
+const std::unordered_set<std::string> separatorSet =  {"(", ")","{","}",";",",","#"};
 std::unordered_map<int, std::vector<int>> FSMtable = { // With key = int, with value = std::vector<int>
     {1, {2, 3, 4}},
     {2, {5, 6, 4}},
@@ -62,7 +62,7 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
     // Check for operators with multi-characters (e.g. ==, !=, <=, >=)
     if (firstChar == '=' || firstChar == '!' || firstChar == '<' || firstChar == '>') {
         int nextPart = inputFile.peek();
-        if (nextPart == '=') {
+        if (nextPart == '=' || nextPart == '>') {
             char next;
             inputFile.get(next);
             lexeme.push_back(next);

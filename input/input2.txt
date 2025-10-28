@@ -1,15 +1,20 @@
-for (integer a = 1; i < 3; i++) {
-    print("How are you");
-    if(a == 2) {
-        print("i am fine");
-    } fi {
-        print("thank you");
-    }
-}
-
-for (int i = 0; i < 10; i++) {
-    print("Iteration");
-    if (i == 5) {
-        break;
-    }
-}
+" operator test "
+= != > < <= => + - * / ==
++-*/
+" separator test "
+{ } ;; , () = #
+)(
+" keyword test"
+integer boolean function real if else fi return put get while
+true false
+"integer"
+1 1000 99 00000000000000
+"real"
+234.567 9.000001 000.00 .1234
+"identifier"
+z12$d$ Zzzz a1z4r zbc12$x x
+"wrong Tokens"
+$
+_
+23rty
+000.

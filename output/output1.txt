@@ -1,14 +1,1 @@
-KEYWORD        while          
-SEPARATOR      (              
-IDENTIFIER     fahr           
-OPERATOR       <=             
-IDENTIFIER     upper          
-SEPARATOR      )              
-SEPARATOR      {              
-IDENTIFIER     fahr           
-OPERATOR       =              
-IDENTIFIER     fahr           
-OPERATOR       +              
-INTEGER        1              
-SEPARATOR      ;              
-SEPARATOR      }              
+OPERATOR       =>             

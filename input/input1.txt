@@ -1,3 +1,1 @@
-while (fahr <= upper) {
-    fahr = fahr + 1;
-}
+=>

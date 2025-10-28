@@ -33,7 +33,7 @@ SEPARATOR      ;
 KEYWORD        while          
 SEPARATOR      (              
 IDENTIFIER     z              
-OPERATOR       >=             
+LEXICAL ERROR  >=             
 REAL           10.0           
 SEPARATOR      )              
 SEPARATOR      {              
