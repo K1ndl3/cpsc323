@@ -11,8 +11,7 @@ SEPARATOR      ;
 IDENTIFIER     real           
 IDENTIFIER     z              
 OPERATOR       =              
-INTEGER        3              
-INTEGER        .14            
+REAL           3.14           
 SEPARATOR      ;              
 KEYWORD        if             
 SEPARATOR      (              
@@ -27,8 +26,7 @@ IDENTIFIER     x
 OPERATOR       +              
 IDENTIFIER     y              
 OPERATOR       *              
-INTEGER        2              
-INTEGER        .5             
+REAL           2.5            
 SEPARATOR      ;              
 KEYWORD        while          
 SEPARATOR      (              
@@ -41,8 +39,7 @@ IDENTIFIER     z
 OPERATOR       =              
 IDENTIFIER     z              
 OPERATOR       -              
-INTEGER        1              
-INTEGER        .0             
+REAL           1.0            
 SEPARATOR      ;              
 SEPARATOR      }              
 SEPARATOR      }              

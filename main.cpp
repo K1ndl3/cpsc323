@@ -18,7 +18,7 @@ std::unordered_map<int, std::vector<int>> FSMtable = { // With key = int, with v
     {1, {2, 3, 4}},
     {2, {5, 6, 4}},
     {3, {4, 3, 7}},
-    {4, {4, 4, 4}},
+    {4, {4, 8, 4}},
     {5, {5, 6, 4}},
     {6, {5, 6, 4}},
     {7, {4, 8, 4}},
@@ -41,7 +41,9 @@ struct Token {
 // Lexer function process by starting with firstChar, uses FSM to consume token,
 // Prints token info, and returns the token
 Token lexer(std::ifstream& inputFile, char firstChar) {
-    std::string lexeme(1, firstChar);
+    // std::string lexeme(1, firstChar);
+    std::string lexeme = "";
+    lexeme += firstChar;
     int state = 1;
 
     // Skip white spaces: if the firstChar we were given is whitespace, consume until a non-space
@@ -84,6 +86,12 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
 
     // Prints error if first character is invalid
     if (charType == -1) return {"LEXICAL ERROR", lexeme};
+
+    // Apply FSM transition for the first character immediately so subsequent peek/transition
+    // decisions reflect the machine state after consuming the firstChar.
+    if (FSMtable.count(state) && charType >= 0 && charType <= 2) {
+        state = FSMtable[state][charType];
+    }
 
     char ch;
     while(true) {

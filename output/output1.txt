@@ -1,1 +1,6 @@
-OPERATOR       =>             
+IDENTIFIER     has            
+KEYWORD        while          
+IDENTIFIER     been           
+IDENTIFIER     for            
+KEYWORD        if             
+                              
