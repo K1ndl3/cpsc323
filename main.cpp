@@ -11,18 +11,19 @@
 #include <iomanip> // for std::setw
 
 //////////////////////////////////////////// Look Up Tables ////////////////////////////////////////////////
-const std::unordered_set<std::string> keywordSet   =  {"true", "false", "integer", "if", "else", "fi", "while", "return", "get", "put"};
+const std::unordered_set<std::string> keywordSet   =  {"true", "false", "integer", "if", "else", "fi", "while", "return", "get", "put", "boolean", "function", "real"};
 const std::unordered_set<std::string> operatorSet  =  {"==", "!=", ">", "<", "<=", "+", "-", "*", "/", "=", "=>"};
 const std::unordered_set<std::string> separatorSet =  {"(", ")","{","}",";",",","#"};
 std::unordered_map<int, std::vector<int>> FSMtable = { // With key = int, with value = std::vector<int>
-    {1, {2, 3, 4}},
-    {2, {5, 6, 4}},
-    {3, {4, 3, 7}},
-    {4, {4, 8, 4}},
-    {5, {5, 6, 4}},
-    {6, {5, 6, 4}},
-    {7, {4, 8, 4}},
-    {8, {4, 8, 4}}
+    {1, {2,3,4,5}},
+    {2, {6,7,5,8}},
+    {3, {5,3,4,5}},
+    {4, {5,9,5,5}},
+    {5, {5,9,5,5}},
+    {6, {6,7,5,8}},
+    {7, {6,7,5,8}},
+    {8, {6,7,5,8}},
+    {9, {5,9,5,5}}
 };
 /////////////////////////////////////////// custom checker functions ///////////////////////////////////////
 int isOperator(const std::string& str) {
@@ -78,7 +79,9 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
     auto categorize = [](char c) {
         if (std::isalpha(static_cast<unsigned char>(c))) return 0;
         else if (std::isdigit(static_cast<unsigned char>(c))) return 1;
+        // else if (c == '.') return 2;
         else if (c == '.') return 2;
+        else if (c == '$') return 3;
         else return -1;
     };
 
@@ -103,7 +106,7 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
             int nextState = FSMtable[state][nextCharType];
 
             // If next state is invalid, stop consuming characters
-            if (nextState == 4) break;
+            if (nextState == 4 && p == EOF) break;
             state = nextState;
             inputFile.get(ch);
             lexeme += ch;
@@ -117,12 +120,12 @@ Token lexer(std::ifstream& inputFile, char firstChar) {
         state = FSMtable[state][arrIndex];
     }
     // Classify and print token based on final FSM state
-    if (state == 2 || state == 5 || state == 6) {
+    if (state == 2 || state == 6 || state == 7 || state == 8) {
         if (keywordSet.count(lexeme)) return {"KEYWORD", lexeme};
         return {"IDENTIFIER", lexeme};
     }
     if (state == 3) return {"INTEGER", lexeme};
-    if (state == 8) return {"REAL", lexeme};
+    if (state == 9) return {"REAL", lexeme};
 
     // Default case: invalid token
     return {"LEXICAL ERROR", lexeme};

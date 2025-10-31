@@ -1,1 +1,2 @@
-has while been for if 
+integer boolean function real if else fi return put get while
+true false

@@ -37,9 +37,9 @@ IDENTIFIER     keyword
 IDENTIFIER     test           
 LEXICAL ERROR  "              
 KEYWORD        integer        
-IDENTIFIER     boolean        
-IDENTIFIER     function       
-IDENTIFIER     real           
+KEYWORD        boolean        
+KEYWORD        function       
+KEYWORD        real           
 KEYWORD        if             
 KEYWORD        else           
 KEYWORD        fi             
@@ -57,7 +57,7 @@ INTEGER        1000
 INTEGER        99             
 INTEGER        00000000000000 
 LEXICAL ERROR  "              
-IDENTIFIER     real           
+KEYWORD        real           
 LEXICAL ERROR  "              
 REAL           234.567        
 REAL           9.000001       
@@ -66,15 +66,10 @@ REAL           .1234
 LEXICAL ERROR  "              
 IDENTIFIER     identifier     
 LEXICAL ERROR  "              
-IDENTIFIER     z12            
-LEXICAL ERROR  $              
-IDENTIFIER     d              
-LEXICAL ERROR  $              
+IDENTIFIER     z12$d$         
 IDENTIFIER     Zzzz           
 IDENTIFIER     a1z4r          
-IDENTIFIER     zbc12          
-LEXICAL ERROR  $              
-IDENTIFIER     x              
+IDENTIFIER     zbc12$x        
 IDENTIFIER     x              
 LEXICAL ERROR  "              
 IDENTIFIER     wrong          
@@ -82,7 +77,6 @@ IDENTIFIER     Tokens
 LEXICAL ERROR  "              
 LEXICAL ERROR  $              
 LEXICAL ERROR  _              
-INTEGER        23             
-IDENTIFIER     rty            
+LEXICAL ERROR  23rty          
 LEXICAL ERROR  000.           
                               

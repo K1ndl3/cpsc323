@@ -8,7 +8,7 @@ IDENTIFIER     y
 OPERATOR       =              
 INTEGER        20             
 SEPARATOR      ;              
-IDENTIFIER     real           
+KEYWORD        real           
 IDENTIFIER     z              
 OPERATOR       =              
 REAL           3.14           

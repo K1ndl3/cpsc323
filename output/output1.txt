@@ -1,6 +1,13 @@
-IDENTIFIER     has            
-KEYWORD        while          
-IDENTIFIER     been           
-IDENTIFIER     for            
+KEYWORD        integer        
+KEYWORD        boolean        
+KEYWORD        function       
+KEYWORD        real           
 KEYWORD        if             
-                              
+KEYWORD        else           
+KEYWORD        fi             
+KEYWORD        return         
+KEYWORD        put            
+KEYWORD        get            
+KEYWORD        while          
+KEYWORD        true           
+KEYWORD        false          
